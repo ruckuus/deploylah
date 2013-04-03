@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-0": {
-            "SKE": "src/"
+            "SKE": "app/"
         }
     }
 }

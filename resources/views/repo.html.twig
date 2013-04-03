@@ -15,7 +15,7 @@
 
     {% endif %}
 
-    <form action="{{ path('repo_check') }}" method="post" novalidate {{ form_enctype(form) }} class="form-vertical">
+    <form action="{{ path('repo') }}" method="post" novalidate {{ form_enctype(form) }} class="form-vertical">
         {{ form_widget(form) }}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">{{ 'Send'|trans }}</button>

@@ -285,12 +285,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafo/lessphp.git",
-                "reference": "54bb80519c9a73eff250fa1671707b492a402280"
+                "reference": "a2feb59a0f5cd144aa70759ce0333f36d12e2582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/lessphp/zipball/54bb80519c9a73eff250fa1671707b492a402280",
-                "reference": "54bb80519c9a73eff250fa1671707b492a402280",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/a2feb59a0f5cd144aa70759ce0333f36d12e2582",
+                "reference": "a2feb59a0f5cd144aa70759ce0333f36d12e2582",
                 "shasum": ""
             },
             "type": "library",
@@ -318,7 +318,7 @@
             ],
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
-            "time": "2013-03-08 21:29:33"
+            "time": "2013-04-02 18:20:23"
         },
         {
             "name": "mheap/silex-assetic",
@@ -326,12 +326,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mheap/Silex-Assetic.git",
-                "reference": "00cd1e43e7c778f8816d20893202addd13a40cc8"
+                "reference": "00787801c12279717542a1b38e88a9fc21d43d17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mheap/Silex-Assetic/zipball/00cd1e43e7c778f8816d20893202addd13a40cc8",
-                "reference": "00cd1e43e7c778f8816d20893202addd13a40cc8",
+                "url": "https://api.github.com/repos/mheap/Silex-Assetic/zipball/00787801c12279717542a1b38e88a9fc21d43d17",
+                "reference": "00787801c12279717542a1b38e88a9fc21d43d17",
                 "shasum": ""
             },
             "require": {
@@ -374,7 +374,7 @@
                 "assetic",
                 "silex"
             ],
-            "time": "2013-03-25 09:35:46"
+            "time": "2013-04-02 15:57:01"
         },
         {
             "name": "monolog/monolog",

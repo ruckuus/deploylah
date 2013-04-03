@@ -28,9 +28,23 @@ $app->match('/about', function() use ($app) {
 $app->match('/repo', function(Request $request) use ($app) {
     $form = $app['form.factory']->createBuilder('form')
         ->add('github_username', 'text', array('label' => 'Github Username', 'data' => $app['session']->get('_security.last_username')))
-        ->add('github_password', 'text', array('label' => 'Github Password'))
+        ->add('github_password', 'password', array('label' => 'Github Password'))
         ->getForm()
     ;
+
+    if ('POST' == $request->getMethod()) {
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+            //var_dump($data); die();
+            $user = $data['github_username'];
+            $repos = $app['github']->api('user')->repositories($user);
+            return $app['twig']->render('repos.html.twig', array(
+                'data' => $repos,
+            ));
+        }
+    }
     
     return $app['twig']->render('repo.html.twig', array(
         'form' => $form->createView(),
@@ -161,30 +175,6 @@ $app->get('/page-with-cache', function() use ($app) {
     return $response;
 })->bind('page_with_cache');
 
-$app->post('/repo_check', function(Request $request) use ($app) {
-
-    /*
-    if (empty($this->app['request']->request->get('github_username')) || 
-        empty($this->app['request']->request->get('github_password'))) {
-            return $app['twig']->render('index.html.twig', array(
-            'form' => $form->createView(),
-            'error' => $app['security.last_error']($request),
-        ));
-    }
-    */
-
-    $user = $request->get('github_username');
-    print_r($user);
-    $repos = $app['github']->api('user')->repositories($user);
-    var_dump($repos);
-    $reponse = new Response($app['twig']->render('repositories.html.twig', array('repositories' => $repositories)));
-    /*
-    return $app['twig']->render('repos.html.twig', array(
-        'repos' => $repositories,
-    ));
-    */
-
-})->bind('repo_check');
 
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {
