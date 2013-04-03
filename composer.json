@@ -16,7 +16,8 @@
         "symfony/validator"     : "~2.2",
         "symfony/yaml"          : "~2.2",
         "twig/twig"             : "~1.10",
-        "twitter/bootstrap"     : "2.3.1"
+        "twitter/bootstrap"     : "2.3.1",
+        "knplabs/github-api"    : "*"
     },
     "require-dev": {
         "symfony/browser-kit"   : "~2.2",

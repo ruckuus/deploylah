@@ -141,5 +141,9 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
 }
 
 $app->register(new Silex\Provider\DoctrineServiceProvider());
+$app['github'] = new Github\Client(new Github\HttpClient\CachedHttpClient(
+                    array('cache_dir' => $app['cache.path'] . '/github/github-api-cache'
+                )));
+
 
 return $app;

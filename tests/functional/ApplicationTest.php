@@ -57,4 +57,23 @@ class ApplicationTest extends WebTestCase
         )));
         $this->assertEquals(2, $crawler->filter('a[href="/logout"]')->count());
     }
+
+    public function testHomePage()
+    {
+        $client = $this->createClient();
+        $client->followRedirects(true);
+
+        $client->request('GET', '/');
+        $this->assertTrue($client->getResponse()->isOk());
+    }
+
+    public function testAboutPage()
+    {
+        $client = $this->createClient();
+        $client->followRedirects(true);
+
+        $client->request('GET', '/about');
+        $this->assertTrue($client->getResponse()->isOk());
+    }
+
 }

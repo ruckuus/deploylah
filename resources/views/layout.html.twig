@@ -25,11 +25,12 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="{{ path('homepage') }}">{{ 'Silex Kitchen Sink Edition'|trans }}</a>
+                <a class="brand" href="{{ path('homepage') }}">{{ 'Deploylah'|trans }}</a>
                 <div class="nav-collapse">
                     <ul class="nav">
                         <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
-                        <li {% if 'page_with_cache' == active %}class="active"{% endif %}><a href="{{ path('page_with_cache') }}">Cache sample</a></li>
+                        <li {% if 'about' == active %}class="active"{% endif %}><a href="{{ path('about') }}">{{ 'About'|trans }}</a></li>
+                        <li {% if 'repo' == active %}class="active"{% endif %}><a href="{{ path('repo') }}">{{ 'Repo'|trans }}</a></li>
                         <li {% if 'form' == active %}class="active"{% endif %}><a href="{{ path('form') }}">Form sample</a></li>
                         <li {% if 'doctrine' == active %}class="active"{% endif %}><a href="{{ path('doctrine') }}">Doctrine</a></li>
                         <li class="dropdown{% if 'account' == active %} active{% endif %}">
