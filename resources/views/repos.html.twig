@@ -3,10 +3,11 @@
 
 {% block content %}
 
-    <ul>
-        {% for repo in repositories %}
-            <li>{{ repo.title }}</li>
-        {% endfor %}
-    </ul>
+    <h2>Your Repository</h2>    
+    <table class="table">
+    {% for repo in data %}
+       <tr><td>{{ repo.name }} </td><td> {{ repo.html_url }} </td><td><button class="btn btn-small btn-primary" type="button">Use This</button></tr></tr>
+    {% endfor %}
+    </table>
 
 {% endblock %}

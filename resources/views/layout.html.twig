@@ -30,9 +30,9 @@
                     <ul class="nav">
                         <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
                         <li {% if 'about' == active %}class="active"{% endif %}><a href="{{ path('about') }}">{{ 'About'|trans }}</a></li>
+                        {% if is_granted('ROLE_USER') %}
                         <li {% if 'repo' == active %}class="active"{% endif %}><a href="{{ path('repo') }}">{{ 'Repo'|trans }}</a></li>
-                        <li {% if 'form' == active %}class="active"{% endif %}><a href="{{ path('form') }}">Form sample</a></li>
-                        <li {% if 'doctrine' == active %}class="active"{% endif %}><a href="{{ path('doctrine') }}">Doctrine</a></li>
+                        {% endif %}
                         <li class="dropdown{% if 'account' == active %} active{% endif %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 Account <b class="caret"></b>
