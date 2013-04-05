@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+{% set active = 'repo' %}
+
+
+{% block content %}
+
+<script>
+jQuery(function($) {
+    $('.commit_message').click(function() {
+            $(this).next('.commit_diff').slideToggle();
+    });
+});
+</script>
+    <h2>Your Github Repository's commits:</h2>
+    <table class="table">
+    {% for commit in data %}
+       <tr><td><div class="commit_message"> {{ commit.commit.message }} </div>
+               <div style="display:none;" class="commit_diff">...</div>
+            </td><td><button class="btn btn-small btn-success" type="button">{{ commit.sha[:10] }}</button></td></tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}
