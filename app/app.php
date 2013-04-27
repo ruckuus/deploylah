@@ -110,6 +110,7 @@ $app->register(new TwigServiceProvider(), array(
     'twig.path'           => array($app['base_dir'] . '/resources/views')
 ));
 
+/*
 if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
     $app->register(new AsseticExtension(), array(
         'assetic.options' => array(
@@ -139,6 +140,7 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
         })
     ));
 }
+*/
 
 $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app['github'] = new Github\Client(new Github\HttpClient\CachedHttpClient(

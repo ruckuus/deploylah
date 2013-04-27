@@ -10,6 +10,6 @@ class Script
         chmod('log', 0777);
         chmod('public/assets', 0777);
         chmod('console', 0500);
-        exec('php console assetic:dump');
+        /* exec('php console assetic:dump'); */
     }
 }
