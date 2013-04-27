@@ -12,9 +12,9 @@ use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
-use SilexAssetic\AsseticExtension;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Silex\Provider\ServiceControllerServiceProvider;
 
 $app = new Silex\Application(array(
     'name' => 'Deploylah',
@@ -29,46 +29,17 @@ $app = new Silex\Application(array(
     'env' => getenv('APP_ENV') ?: 'prod',
 ));
 
+$app->register(new Igorw\Silex\ConfigServiceProvider($app['base_dir'] . '/resources/config/' . $app['env'] . '.json'));
 
-$app->register(new Igorw\Silex\ConfigServiceProvider($app['base_dir'] . '/resources/config/' . $app['env'] . '.yml'));
-
-/* -- start of configuration */
-// Http cache
 $app['http_cache.cache_dir'] = $app['cache.path'] . '/http';
-
-// Twig cache
 $app['twig.options.cache'] = $app['cache.path'] . '/twig';
-
-// Assetic
-$app['assetic.enabled']              = true;
-$app['assetic.path_to_cache']        = $app['cache.path'] . '/assetic' ;
-$app['assetic.path_to_web']          = $app['base_dir'] . '/public/assets';
-$app['assetic.input.path_to_assets'] = $app['base_dir'] . '/resources/assets';
-
-$app['assetic.input.path_to_css']       = $app['assetic.input.path_to_assets'] . '/less/style.less';
-$app['assetic.output.path_to_css']      = 'css/styles.css';
-$app['assetic.input.path_to_js']        = array(
-            $app['base_dir'] . '/vendor/twitter/bootstrap/js/*.js',
-            $app['assetic.input.path_to_assets'] . '/js/script.js',
-);
-$app['assetic.output.path_to_js']       = 'js/scripts.js';
-
-// Doctrine (db)
-$app['db.options'] = array(
-    'driver'   => 'pdo_mysql',
-    'host'     => 'localhost',
-    'dbname'   => 'deploylah',
-    'user'     => 'root',
-    'password' => '',
-);
-
-/* -- end of configuration */
 
 $app->register(new HttpCacheServiceProvider());
 $app->register(new SessionServiceProvider());
 $app->register(new ValidatorServiceProvider());
 $app->register(new FormServiceProvider());
 $app->register(new UrlGeneratorServiceProvider());
+$app->register(new ServiceControllerServiceProvider());
 
 $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
@@ -90,6 +61,7 @@ $app->register(new SecurityServiceProvider(), array(
 ));
 
 $app->register(new TranslationServiceProvider());
+
 $app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
     $translator->addLoader('yaml', new YamlFileLoader());
 
@@ -113,40 +85,11 @@ $app->register(new TwigServiceProvider(), array(
     'twig.path'           => array($app['base_dir'] . '/resources/views')
 ));
 
-/*
-if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
-    $app->register(new AsseticExtension(), array(
-        'assetic.options' => array(
-            'debug'            => $app['debug'],
-            'auto_dump_assets' => $app['debug'],
-        ),
-        'assetic.filters' => $app->protect(function($fm) use ($app) {
-            $fm->set('lessphp', new Assetic\Filter\LessphpFilter());
-        }),
-        'assetic.assets' => $app->protect(function($am, $fm) use ($app) {
-            $am->set('styles', new Assetic\Asset\AssetCache(
-                new Assetic\Asset\GlobAsset(
-                    $app['assetic.input.path_to_css'],
-                    array($fm->get('lessphp'))
-                ),
-                new Assetic\Cache\FilesystemCache($app['assetic.path_to_cache'])
-            ));
-            $am->get('styles')->setTargetPath($app['assetic.output.path_to_css']);
-
-            $am->set('scripts', new Assetic\Asset\AssetCache(
-                new Assetic\Asset\GlobAsset(
-                    $app['assetic.input.path_to_js']
-                ),
-                new Assetic\Cache\FilesystemCache($app['assetic.path_to_cache'])
-            ));
-            $am->get('scripts')->setTargetPath($app['assetic.output.path_to_js']);
-        })
+if ($app->offsetExists('doctrine.options')) {
+    $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+        'db.options' => $app['doctrine.options']
     ));
 }
-*/
-
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-));
 
 /* Github service provider */
 $app['github'] = new Github\Client(new Github\HttpClient\CachedHttpClient(

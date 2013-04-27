@@ -39,7 +39,7 @@ $app->match('/logout', function() use ($app) {
 
 $app->match('/repo', function(Request $request) use ($app) {
     $form = $app['form.factory']->createBuilder('form')
-        ->add('github_username', 'text', array('label' => 'Github Username', 'data' => $app['session']->get('_security.last_username')))
+        ->add('github_username', 'text', array('label' => 'Github Username'))
         ->add('github_password', 'password', array('label' => 'Github Password'))
         ->getForm()
     ;
