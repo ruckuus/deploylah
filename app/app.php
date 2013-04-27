@@ -13,7 +13,7 @@ use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use SilexAssetic\AsseticExtension;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 
 $app = new Silex\Application(array(
@@ -52,13 +52,10 @@ $app['assetic.output.path_to_js']       = 'js/scripts.js';
 $app['db.options'] = array(
     'driver'   => 'pdo_mysql',
     'host'     => 'localhost',
-    'dbname'   => 'silex_kitchen',
+    'dbname'   => 'deploylah',
     'user'     => 'root',
     'password' => '',
 );
-
-// User
-$app['security.users'] = array('username' => array('ROLE_USER', 'password'));
 
 $app->register(new HttpCacheServiceProvider());
 $app->register(new SessionServiceProvider());
@@ -74,17 +71,16 @@ $app->register(new SecurityServiceProvider(), array(
                 'login_path'         => '/login',
                 'username_parameter' => 'form[username]',
                 'password_parameter' => 'form[password]',
+                'check_path' => '/admin/login_check',
             ),
             'logout'    => true,
             'anonymous' => true,
-            'users'     => $app['security.users'],
+            'users'     => $app->share(function() use ($app) {
+                return new Deploylah\User\UserProvider($app['db']);
+            }),
         ),
     ),
 ));
-
-$app['security.encoder.digest'] = $app->share(function ($app) {
-    return new PlaintextPasswordEncoder();
-});
 
 $app->register(new TranslationServiceProvider());
 $app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
@@ -142,7 +138,10 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
 }
 */
 
-$app->register(new Silex\Provider\DoctrineServiceProvider());
+$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+));
+
+/* Github service provider */
 $app['github'] = new Github\Client(new Github\HttpClient\CachedHttpClient(
                     array('cache_dir' => $app['cache.path'] . '/github/github-api-cache'
                 )));

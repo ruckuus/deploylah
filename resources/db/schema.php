@@ -10,16 +10,13 @@ $project->addColumn('created_at', 'string', array('length' => 32));
 $project->addColumn('updated_at', 'string', array('length' => 32));
 $project->setPrimaryKey(array('id'));
 
-$user = $schema->createTable('user');
-$user->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
-$user->addColumn('username', 'string', array('length' => 32));
-$user->addColumn('password', 'string', array('length' => 32));
-$user->addColumn('salt', 'string', array('length' => 64));
-$user->addColumn('created_at', 'string', array('length' => 32));
-$user->addColumn('updated_at', 'string', array('length' => 32));
-$user->addColumn('last_login', 'string', array('length' => 32));
-$user->addColumn('user_right', 'string', array('length' => 32));
-$user->setPrimaryKey(array('id'));
+$users = $schema->createTable('users');
+$users->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
+$users->addColumn('username', 'string', array('length' => 32));
+$users->addUniqueIndex(array('username'));
+$users->addColumn('password', 'string', array('length' => 255));
+$users->addColumn('roles', 'string', array('length' => 255));
+$users->setPrimaryKey(array('id'));
 
 $repo = $schema->createTable('repo');
 $repo->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
