@@ -6,7 +6,11 @@
     <h2>Your Repository</h2>    
     <table class="table">
     {% for repo in data %}
-       <tr><td>{{ repo.name }} </td><td> {{ repo.html_url }} </td><td><button class="btn btn-small btn-primary" type="button">Use This</button></tr></tr>
+       <tr><td>{{ repo.name }} </td><td> {{ repo.html_url }} </td>
+        <td>
+        <form id="form[{{ repo.name }}]" action="/process" method="post"><input id="reponame" name="reponame" type="hidden" value="{{ repo.name }}"><button class="btn btn-small btn-primary" type="submit">Use This</button></form>
+        </td>
+      </tr>
     {% endfor %}
     </table>
 

@@ -49,6 +49,11 @@ $app->match('/repo', function(Request $request) use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
             $user = $data['github_username'];
+            $pass = $data['github_password'];
+
+            $app['session']->set('github_user', array('username' => $user, 'password' => $pass));
+            $app['github']->authenticate($user, $pass, Github\Client::AUTH_HTTP_PASSWORD);
+
             $repos = $app['github']->api('user')->repositories($user);
             return $app['twig']->render('repos.html.twig', array(
                 'data' => $repos,
@@ -62,10 +67,28 @@ $app->match('/repo', function(Request $request) use ($app) {
     ));
 })->bind('repo');
 
+$app->post('/process', function(Request $request) use ($app) {
+    if ('POST' == $request->getMethod()) {
+        $reponame = $request->get('reponame');
+        $github = $app['session']->get('github_user');
+
+        /* In case we need to reauthenticate */
+        $app['github']->authenticate($github['username'], $github['password'], Github\Client::AUTH_HTTP_PASSWORD);
+
+        $commits = $app['github']->api('repo')->commits()->all($github['username'], $reponame, array('sha' => 'master'));
+
+        return $app['twig']->render('commits.html.twig', array(
+            'data' => $commits,
+        ));
+    }
+});
+
 $app->error(function (\Exception $e, $code) use ($app) {
-    if ($app['debug']) {
+   /*
+    * if ($app['debug']) {
         return;
     }
+    */
 
     switch ($code) {
         case 404:
@@ -73,9 +96,11 @@ $app->error(function (\Exception $e, $code) use ($app) {
             break;
         default:
             $message = 'We are sorry, but something went terribly wrong.';
+            $app['session']->getFlashBag()->add('error', $message);
     }
 
     return new Response($message, $code);
 });
+
 
 return $app;
