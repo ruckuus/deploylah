@@ -5,7 +5,6 @@ if (!file_exists(dirname(__DIR__) . '/vendor/autoload.php')) {
 }
 
 $autoloader = require(dirname(__DIR__) . '/vendor/autoload.php');
-//$autoloader->add('\\Deploylah\\Provider\\', __DIR__);
-
+$autoloader->add('\\Deploylah\\Provider\\', __DIR__ . '/Deploylah/Provider');
 
 return $autoloader;

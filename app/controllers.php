@@ -5,37 +5,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 
-$app->match('/', function() use ($app) {
-    return $app['twig']->render('index.html.twig');
-})->bind('homepage');
+$app->mount('/', new Deploylah\Provider\IndexControllerProvider());
+$app->mount('/user', new Deploylah\Provider\LoginControllerProvider());
+$app->mount('/project', new Deploylah\Provider\ProjectControllerProvider());
 
-$app->match('/about', function() use ($app) {
-    $aboutus = 'LOLOLOLOL';
-    return $app['twig']->render('about.html.twig', array(
-        'data' => $aboutus,
-    ));
-})->bind('about');
-
-$app->match('/login', function(Request $request) use ($app) {
-   $form = $app['form.factory']->createBuilder('form')
-        ->add('username', 'text', array('label' => 'Username', 'data' => $app['session']->get('_security.last_username')))
-        ->add('password', 'password', array('label' => 'Password'))
-        ->getForm()
-    ;
-
-    return $app['twig']->render('login.html.twig', array(
-        'form'  => $form->createView(),
-        'error' => $app['security.last_error']($request),
-        'last_username' => $app['session']->get('_security.last_username'),
-    ));
-
-})->bind('login');
-
-$app->match('/logout', function() use ($app) {
-    $app['session']->clear();
-
-    return $app->redirect($app['url_generator']->generate('homepage'));
-})->bind('logout');
 
 $app->match('/repo', function(Request $request) use ($app) {
     $form = $app['form.factory']->createBuilder('form')
@@ -84,6 +57,7 @@ $app->post('/process', function(Request $request) use ($app) {
     }
 });
 
+
 $app->error(function (\Exception $e, $code) use ($app) {
     switch ($code) {
         case 404:
@@ -96,6 +70,5 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
     return new Response($message, $code);
 });
-
 
 return $app;
