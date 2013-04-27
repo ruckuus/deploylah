@@ -26,8 +26,13 @@ $app = new Silex\Application(array(
         'en' => dirname(__DIR__) . '/resources/locales/en.yml',
     ),
     'cache.path' => dirname(__DIR__) . '/cache',
+    'env' => getenv('APP_ENV') ?: 'prod',
 ));
 
+
+$app->register(new Igorw\Silex\ConfigServiceProvider($app['base_dir'] . '/resources/config/' . $app['env'] . '.yml'));
+
+/* -- start of configuration */
 // Http cache
 $app['http_cache.cache_dir'] = $app['cache.path'] . '/http';
 
@@ -56,6 +61,8 @@ $app['db.options'] = array(
     'user'     => 'root',
     'password' => '',
 );
+
+/* -- end of configuration */
 
 $app->register(new HttpCacheServiceProvider());
 $app->register(new SessionServiceProvider());
@@ -145,6 +152,5 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 $app['github'] = new Github\Client(new Github\HttpClient\CachedHttpClient(
                     array('cache_dir' => $app['cache.path'] . '/github/github-api-cache'
                 )));
-
 
 return $app;

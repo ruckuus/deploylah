@@ -17,7 +17,8 @@
         "symfony/yaml"          : "~2.2",
         "twig/twig"             : "~1.10",
         "twitter/bootstrap"     : "2.3.1",
-        "knplabs/github-api"    : "*"
+        "knplabs/github-api"    : "*",
+        "igorw/config-service-provider": "1.2.*@dev"
     },
     "require-dev": {
         "symfony/browser-kit"   : "~2.2",
