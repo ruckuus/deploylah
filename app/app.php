@@ -90,9 +90,12 @@ if ($app->offsetExists('doctrine.options')) {
     ));
 }
 
-/* Github service provider */
+/* Github service provider 
 $app['github'] = new Github\Client(new Github\HttpClient\CachedHttpClient(
                     array('cache_dir' => $app['cache.path'] . '/github/github-api-cache'
                 )));
+*/
+
+$app->register(new Deploylah\Provider\GithubServiceProvider());
 
 return $app;
