@@ -93,4 +93,7 @@ if ($app->offsetExists('doctrine.options')) {
 /* Github service provider */
 $app->register(new Deploylah\Provider\GithubServiceProvider());
 
+/* ActiveRecord */
+$app->register(new Deploylah\Provider\ActiveRecordServiceProvider());
+
 return $app;

@@ -8,6 +8,8 @@ use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Doctrine\DBAL\Connection;
+use \ActiveRecord;
+use Deploylah\Model\User as DeployUser;
  
 class UserProvider implements UserProviderInterface
 {
@@ -20,8 +22,11 @@ class UserProvider implements UserProviderInterface
  
     public function loadUserByUsername($username)
     {
-        $stmt = $this->conn->executeQuery('SELECT * FROM users WHERE username = ?', array(strtolower($username)));
-        if (!$user = $stmt->fetch()) {
+        if (!DeployUser::find('all', array('condition' => 'username = ?' . array(strtolower($username))))) {
+
+        // $stmt = $this->conn->executeQuery('SELECT * FROM users WHERE username = ?', array(strtolower($username)));
+
+        //if (!$user = $stmt->fetch()) {
 
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }

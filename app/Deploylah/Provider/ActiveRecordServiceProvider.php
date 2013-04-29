@@ -8,10 +8,8 @@ namespace Deploylah\Provider;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-use ActiveRecord;
-use ActiveRecord\Config;
 
-class ServiceProvider implements ServiceProviderInterface
+class ActiveRecordServiceProvider implements ServiceProviderInterface
 {
     private $app;
 
@@ -19,11 +17,12 @@ class ServiceProvider implements ServiceProviderInterface
     {
         $this->app = $app;
         $app['ar'] = $app->share(function ($app) {
-            ActiveRecord\Config::initialize(function ($config) {
+           \ActiveRecord\Config::initialize(function ($config) {
                 $config->set_model_directory($app['base_dir'] . '/' . $app['name'] . '/Model');
                 $config->set_connection(array(
-                    $app['env'] => $app['ar.dsn']
+                    $app['env'] =>'mysql://root@localhost/deploylah' 
                 ));
+                $config->set_default_connection($app['env']);
             });
         });
     }
