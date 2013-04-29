@@ -1,5 +1,9 @@
 {
-    "hash": "2ccd86c37d9107b54199e862bf9040de",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "f6f78db5117e24b3efea7685e5f70abd",
     "packages": [
         {
             "name": "doctrine/common",
@@ -500,6 +504,41 @@
                 "psr-3"
             ],
             "time": "2013-04-23 10:09:48"
+        },
+        {
+            "name": "php-activerecord/php-activerecord",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kla/php-activerecord.git",
+                "reference": "567b4213b424e922a65fcd1f572fc3fc8decdf1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kla/php-activerecord/zipball/567b4213b424e922a65fcd1f572fc3fc8decdf1e",
+                "reference": "567b4213b424e922a65fcd1f572fc3fc8decdf1e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "ActiveRecord.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "php-activerecord is an open source ORM library based on the ActiveRecord pattern.",
+            "homepage": "http://www.phpactiverecord.org/",
+            "keywords": [
+                "activerecord",
+                "orm"
+            ],
+            "time": "2013-04-28 15:37:21"
         },
         {
             "name": "pimple/pimple",
@@ -1798,7 +1837,8 @@
         "leafo/lessphp": 20,
         "mheap/silex-assetic": 20,
         "silex/silex": 20,
-        "igorw/config-service-provider": 20
+        "igorw/config-service-provider": 20,
+        "php-activerecord/php-activerecord": 20
     },
     "platform": {
         "php": ">=5.3.3"

@@ -18,7 +18,8 @@
         "twig/twig"             : "~1.10",
         "twitter/bootstrap"     : "2.3.1",
         "knplabs/github-api"    : "*",
-        "igorw/config-service-provider": "1.2.*@dev"
+        "igorw/config-service-provider": "1.2.*@dev",
+         "php-activerecord/php-activerecord": "dev-master"
     },
     "require-dev": {
         "symfony/browser-kit"   : "~2.2",
