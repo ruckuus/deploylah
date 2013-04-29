@@ -4,6 +4,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 use Doctrine\DBAL\DriverManager;
 
@@ -158,5 +159,34 @@ EOT
         return $error ? 1 : 0;
     })
 ;
+
+$console
+    ->register('util:password:encode')
+    ->setDescription('Encode plain password')
+    ->addOption('password', null, InputOption::VALUE_OPTIONAL, 'Plain password input')
+    ->addOption('salt', null, InputOption::VALUE_OPTIONAL, 'Salt')
+    ->setHelp(<<<EOT
+Encode plain password
+<info>php app/console util:password:encode <password> <salt> </info>
+EOT
+)
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
+        $app['security.encoder.digest'] = $app->share(function ($app) {
+            return new MessageDigestPasswordEncoder();
+        });
+
+        $password = $input->getOption('password');
+        $password = isset($password) ? $password : 'password';
+
+        $salt = $input->getOption('salt');
+        $salt = isset($salt) ? $salt : '';
+
+        $encoded = $app['security.encoder.digest']->encodePassword($password, $salt);
+
+        $output->writeln(sprintf("Plaintext: %s", $password));
+        $output->writeln(sprintf("Salt: %s", $salt));
+        $output->writeln(sprintf("Encoded: %s", $encoded));
+
+    });
 
 return $console;

@@ -1,0 +1,10 @@
+{
+	"debug": true,
+	"doctrine.options" : {
+		"driver": "pdo_mysql",
+		"dbname": "deploylah",
+		"host": "localhost",
+		"user": "root",
+		"password": ""
+	}
+}
