@@ -45,7 +45,7 @@ $app->register(new SecurityServiceProvider(), array(
         'admin' => array(
             'pattern' => '^/',
             'form'    => array(
-                'login_path'         => '/login',
+                'login_path'         => '/user/login',
                 'username_parameter' => 'form[username]',
                 'password_parameter' => 'form[password]',
                 'check_path' => '/admin/login_check',

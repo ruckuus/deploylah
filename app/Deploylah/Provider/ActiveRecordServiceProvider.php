@@ -16,15 +16,20 @@ class ActiveRecordServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $this->app = $app;
-        $app['ar'] = $app->share(function ($app) {
-           \ActiveRecord\Config::initialize(function ($config) {
-                $config->set_model_directory($app['base_dir'] . '/' . $app['name'] . '/Model');
-                $config->set_connection(array(
-                    $app['env'] =>'mysql://root@localhost/deploylah' 
+
+        $connections = array(
+                    'development' => 'mysql://root:secret@localhost/deploylah',
+                    'integration' => 'mysql://root:secret@localhost/deploylah',
+                    'production' => 'mysql://root:secret@localhost/deploylah',
+        );
+
+        \ActiveRecord\Config::initialize(function ($cfg) use ($app) {
+                $cfg->set_model_directory($app['base_dir'] . '/app/' . $app['name'] . '/Model');
+                $cfg->set_connections(array(
+                    'development' => 'mysql://root@localhost/deploylah',
                 ));
-                $config->set_default_connection($app['env']);
+                $cfg->set_default_connection('development');
             });
-        });
     }
 
     public function boot(Application $app)

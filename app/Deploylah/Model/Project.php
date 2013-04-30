@@ -1,5 +1,7 @@
 <?php
-class Project extends ActiveRecord\Model
+namespace Deploylah\Model;
+
+class Project extends \ActiveRecord\Model
 {
     static $belongs_to = array(
         array('user')

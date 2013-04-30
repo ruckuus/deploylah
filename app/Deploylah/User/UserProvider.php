@@ -22,16 +22,14 @@ class UserProvider implements UserProviderInterface
  
     public function loadUserByUsername($username)
     {
-        if (!DeployUser::find('all', array('condition' => 'username = ?' . array(strtolower($username))))) {
+        $user = DeployUser::find('all', array('conditions' => array ('username' => strtolower($username)))); 
 
-        // $stmt = $this->conn->executeQuery('SELECT * FROM users WHERE username = ?', array(strtolower($username)));
-
-        //if (!$user = $stmt->fetch()) {
+        if (!$user) {
 
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }
  
-        return new User($user['username'], $user['password'], explode(',', $user['roles']), true, true, true, true);
+        return new User($user->get_username, $user->get_password, explode(',', $user->get_roles), true, true, true, true);
     }
  
     public function refreshUser(UserInterface $user)

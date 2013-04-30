@@ -8,7 +8,10 @@
                 "autoload": {
                     "psr-0": {
                         "ActiveRecord": "lib/"
-                    } 
+                    },
+                    "files": [
+                        "ActiveRecord.php"
+                        ] 
                 },
                 "source": {
                     "url": "https://github.com/kla/php-activerecord",
