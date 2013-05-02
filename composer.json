@@ -1,4 +1,26 @@
 {
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "kla/php-activerecord",
+                "version": "dev-master",
+                "autoload": {
+                    "psr-0": {
+                        "ActiveRecord": "lib/"
+                    },
+                    "files": [
+                        "ActiveRecord.php"
+                        ] 
+                },
+                "source": {
+                    "url": "https://github.com/kla/php-activerecord",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        } 
+     ],
     "require": {
         "php"                   : ">=5.3.3",
         "doctrine/dbal"         : "~2.3",
@@ -19,7 +41,7 @@
         "twitter/bootstrap"     : "2.3.1",
         "knplabs/github-api"    : "*",
         "igorw/config-service-provider": "1.2.*@dev",
-         "php-activerecord/php-activerecord": "dev-master"
+        "php-activerecord/php-activerecord": "dev-master"
     },
     "require-dev": {
         "symfony/browser-kit"   : "~2.2",
