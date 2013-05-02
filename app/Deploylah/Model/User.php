@@ -4,8 +4,14 @@ namespace Deploylah\Model;
 class User extends \ActiveRecord\Model
 {
     static $connection = 'development';
-
+    
     static $attr_accessible = array('username', 'password', 'roles');
+
+    static $alias_attribute = array(
+        'alias_username' => 'username', 
+        'alias_password' => 'password',
+        'alias_roles' => 'roles'
+    );
 
     static $has_many = array(
         array('project'),

@@ -7,29 +7,25 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Doctrine\DBAL\Connection;
-use \ActiveRecord;
 use Deploylah\Model\User as DeployUser;
  
 class UserProvider implements UserProviderInterface
 {
-    private $conn;
- 
-    public function __construct(Connection $conn)
-    {
-        $this->conn = $conn;
-    }
- 
+
     public function loadUserByUsername($username)
     {
-        $user = DeployUser::find('all', array('conditions' => array ('username' => strtolower($username)))); 
+        $user = DeployUser::find_by_username(strtolower($username)); 
 
-        if (!$user) {
+        if ($user->count() < 1) {
 
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }
+
+        if ($user->dirty_attributes()) {
+            throw new UnsupportedUserException(sprintf('Bad credentials for "%s"'), $username);
+        }
  
-        return new User($user->get_username, $user->get_password, explode(',', $user->get_roles), true, true, true, true);
+        return new User($user->alias_username, $user->alias_password, explode(',', $user->alias_roles), true, true, true, true);
     }
  
     public function refreshUser(UserInterface $user)
