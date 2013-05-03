@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+{% set active = 'project' %}
+
+{% block content %}
+
+    <h3>{{ 'Your Projects'|trans }}</h3>
+
+    {% if error %}
+        <div class="alert alert-error">
+            {{ error }}
+        </div>
+        <div class="alert alert-info">
+            <strong>Hint:</strong> Try <code>username</code>/<code>password</code>
+        </div>
+
+    {% endif %}
+
+    <form action="{{ path('project') }}" method="post" novalidate {{ form_enctype(form) }} class="form-vertical">
+        {{ form_widget(form) }}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">{{ 'Create'|trans }}</button>
+        </div>
+    </form>
+
+{% endblock %}
