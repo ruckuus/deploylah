@@ -10,7 +10,8 @@ class User extends \ActiveRecord\Model
     static $alias_attribute = array(
         'alias_username' => 'username', 
         'alias_password' => 'password',
-        'alias_roles' => 'roles'
+        'alias_roles' => 'roles',
+        'alias_id' => 'id'
     );
 
     static $has_many = array(

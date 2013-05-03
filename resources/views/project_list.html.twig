@@ -4,5 +4,19 @@
 {% block content %}
 
     <h3>{{ 'Your Projects'|trans }}</h3>
+    <ul>
+        <div class="form-actions">
+        
+        <a class="btn btn-primary" href="{{ path('project_new') }}">
+           Create a new one 
+        </a>
+        </div>
+
+        {% for p in data %}
+            <li>{{ p.name }}</li>
+        {% endfor %}
+    </ul>
+
+
 
 {% endblock %}

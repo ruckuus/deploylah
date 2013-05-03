@@ -5,6 +5,7 @@ namespace Deploylah\Provider;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Deploylah\Model\Project;
+use Deploylah\Model\User;
 
 class ProjectControllerProvider implements ControllerProviderInterface
 {
@@ -13,7 +14,8 @@ class ProjectControllerProvider implements ControllerProviderInterface
 
         $controllers->get('/', function (Application $app) {
             $username = $app['session']->get('_security.last_username');
-            $projects = Project::find_by_user_id(strtolower($username)); 
+            $id = User::find_by_username($username);
+            $projects = Project::find_by_user_id($me); 
 
             $data = $projects ? $projects->serialize() : 'You don\'t have any project';
 
