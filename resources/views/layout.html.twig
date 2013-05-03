@@ -32,8 +32,13 @@
                         <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
                         <li {% if 'about' == active %}class="active"{% endif %}><a href="{{ path('about') }}">{{ 'About'|trans }}</a></li>
                         {% if is_granted('ROLE_USER') %}
+                        <li {% if 'project' == active %}class="active"{% endif %}><a href="{{ path('project') }}">{{ 'Projects'|trans }}</a></li>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_USER') %}
                         <li {% if 'repo' == active %}class="active"{% endif %}><a href="{{ path('repo') }}">{{ 'Repo'|trans }}</a></li>
                         {% endif %}
+
                         <li class="dropdown{% if 'account' == active %} active{% endif %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 Account <b class="caret"></b>

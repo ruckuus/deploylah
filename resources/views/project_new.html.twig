@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h3>{{ 'Your Projects'|trans }}</h3>
+    <h3>{{ 'Create new project'|trans }}</h3>
     <form action="{{ path('project') }}" method="post" novalidate {{ form_enctype(form) }} class="form-vertical">
         {{ form_widget(form) }}
         <div class="form-actions">
