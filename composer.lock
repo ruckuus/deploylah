@@ -1,9 +1,5 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
-    ],
-    "hash": "d4e3a3620bd51df42014654ecf1e5c01",
+    "hash": "e5e908e625e6cba342778eb62dd80132",
     "packages": [
         {
             "name": "doctrine/common",
@@ -507,16 +503,16 @@
         },
         {
             "name": "php-activerecord/php-activerecord",
-            "version": "dev-master",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kla/php-activerecord.git",
-                "reference": "567b4213b424e922a65fcd1f572fc3fc8decdf1e"
+                "reference": "v1.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kla/php-activerecord/zipball/567b4213b424e922a65fcd1f572fc3fc8decdf1e",
-                "reference": "567b4213b424e922a65fcd1f572fc3fc8decdf1e",
+                "url": "https://api.github.com/repos/kla/php-activerecord/zipball/v1.1.2",
+                "reference": "v1.1.2",
                 "shasum": ""
             },
             "require": {
@@ -538,7 +534,7 @@
                 "activerecord",
                 "orm"
             ],
-            "time": "2013-04-28 15:37:21"
+            "time": "2013-04-26 21:01:08"
         },
         {
             "name": "pimple/pimple",
@@ -625,17 +621,64 @@
             "time": "2012-12-21 11:40:51"
         },
         {
-            "name": "silex/silex",
+            "name": "ruckuus/php-activerecord-service-provider",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Silex.git",
-                "reference": "7244eb8e5c3bff655291f6e3addc942b27c369ff"
+                "url": "https://github.com/ruckuus/ActiveRecordServiceProvider.git",
+                "reference": "f6d47314038d9687d1361202a9d9025ffead5a0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/7244eb8e5c3bff655291f6e3addc942b27c369ff",
-                "reference": "7244eb8e5c3bff655291f6e3addc942b27c369ff",
+                "url": "https://api.github.com/repos/ruckuus/ActiveRecordServiceProvider/zipball/f6d47314038d9687d1361202a9d9025ffead5a0c",
+                "reference": "f6d47314038d9687d1361202a9d9025ffead5a0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "php-activerecord/php-activerecord": ">=1.1.1,<1.2",
+                "silex/silex": "1.0.*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ruckuus\\Silex": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dwi Sasongko S",
+                    "email": "ruckuus@gmail.com",
+                    "homepage": "http://havinghere.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHPActiveRecord Service Provider for Silex",
+            "homepage": "https://github.com/ruckuus/ActiveRecordServiceProvider",
+            "keywords": [
+                "activerecord",
+                "database",
+                "orm",
+                "silex"
+            ],
+            "time": "2013-05-06 04:58:16"
+        },
+        {
+            "name": "silex/silex",
+            "version": "1.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Silex.git",
+                "reference": "b5d9bad2adf42f82f58e3eda3908aabada67a77e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/b5d9bad2adf42f82f58e3eda3908aabada67a77e",
+                "reference": "b5d9bad2adf42f82f58e3eda3908aabada67a77e",
                 "shasum": ""
             },
             "require": {
@@ -649,7 +692,7 @@
             "require-dev": {
                 "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
                 "monolog/monolog": ">=1.4,<2.0,>=1.4.1",
-                "swiftmailer/swiftmailer": "4.2.*",
+                "swiftmailer/swiftmailer": "5.*",
                 "symfony/browser-kit": ">=2.1,<2.4-dev",
                 "symfony/config": ">=2.1,<2.4-dev",
                 "symfony/css-selector": ">=2.1,<2.4-dev",
@@ -704,7 +747,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2013-04-27 07:31:15"
+            "time": "2013-05-04 16:24:16"
         },
         {
             "name": "symfony/config",
@@ -1838,7 +1881,7 @@
         "mheap/silex-assetic": 20,
         "silex/silex": 20,
         "igorw/config-service-provider": 20,
-        "php-activerecord/php-activerecord": 20
+        "ruckuus/php-activerecord-service-provider": 20
     },
     "platform": {
         "php": ">=5.3.3"

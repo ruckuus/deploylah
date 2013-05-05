@@ -15,6 +15,7 @@ use Silex\Provider\ValidatorServiceProvider;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Silex\Provider\ServiceControllerServiceProvider;
+//use Ruckuus\Silex\ActiveRecordServiceProvider;
 
 $app = new Silex\Application(array(
     'name' => 'Deploylah',
@@ -94,6 +95,12 @@ if ($app->offsetExists('doctrine.options')) {
 $app->register(new Deploylah\Provider\GithubServiceProvider());
 
 /* ActiveRecord */
-$app->register(new Deploylah\Provider\ActiveRecordServiceProvider());
+$app->register(new Ruckuus\Silex\ActiveRecordServiceProvider(), array(
+    'ar.model_dir' => $app['base_dir'] . '/app/' . $app['name'] . '/Model',
+    'ar.connections' =>  array (
+            'development' => 'mysql://root@localhost/deploylah'
+        ),
+    'ar.default_connection' => 'development'
+));
 
 return $app;
